@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.applications import AppType
 
 from app import api, handlers
-from app.src.settings import bot, dp, settings
+from app.src.settings import bot, dp, settings, l10n_middleware
 
 
 @contextlib.asynccontextmanager
@@ -19,6 +19,8 @@ async def lifespan(app: AppType):  # noqa
         secret_token=settings.TELEGRAM_SECRET_TOKEN.get_secret_value()
     )
     dp.include_router(router=handlers.router)
+    dp.message.middleware(l10n_middleware)
+    dp.callback_query.middleware(l10n_middleware)
 
     yield
 

@@ -12,11 +12,13 @@ import orjson
 import ujson
 
 from app.src.types.custom import ListStrEnv
+from app.src.middlewares.bot import L10N, L10NMiddleware
 
 __all__ = [
     "bot",
     "dp",
     "settings",
+    "l10n_middleware",
 ]
 
 
@@ -44,8 +46,8 @@ class Settings(BaseSettings):
 
     # locale (l10n)
     LOCALE_PATH: Path = BASE_DIR / "locales/{locale}"
-    ALLOWED_LOCALES: ListStrEnv = ["ru"]
-    DEFAULT_LOCALE: str = "ru"
+    ALLOWED_LOCALES: ListStrEnv
+    DEFAULT_LOCALE: str
     RESOURCE_IDS: ListStrEnv = ["translation.ftl"]
 
 
@@ -69,3 +71,10 @@ bot = Bot(
         json_dumps=ujson.dumps
     )
 )
+l10n = L10N(
+    locales=settings.ALLOWED_LOCALES,
+    default_locale=settings.DEFAULT_LOCALE,
+    resource_ids=settings.RESOURCE_IDS,
+    roots=str(settings.LOCALE_PATH)
+)
+l10n_middleware = L10NMiddleware(l10n=l10n)
