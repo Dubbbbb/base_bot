@@ -13,7 +13,7 @@ services:
     volumes:
       - .:/opt/enigma_bot
     environment:
-      DOMAIN: https://942a-80-249-81-99.ngrok-free.app
+      DOMAIN: https://some-site.org
       DATABASE_URL: postgresql://enigma:enigma@enigma:5432/enigma
 
       TELEGRAM_BOT_TOKEN: 1808397438:AAGH02DZUHY2KV9awS6wMXgP4iuuwMcQKqQ
