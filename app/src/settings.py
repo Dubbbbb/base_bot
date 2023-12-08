@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from aiogram import Bot, Dispatcher
 from aiogram.client.session.aiohttp import AiohttpSession
 from aiogram.enums import ParseMode
@@ -23,20 +25,27 @@ class Settings(BaseSettings):
         case_sensitive=False,
         frozen=True
     )
+    # general
+    BASE_DIR: Path = Path(__file__).resolve().parent.parent
 
     # application
     DOMAIN: HttpUrl
-    HOST: str = Field(default="0.0.0.0")
-    PORT: int = Field(default=8000)
-    DEBUG: bool = Field(default=False)
+    HOST: str = "0.0.0.0"
+    PORT: int = 8000
+    DEBUG: bool = False
     DATABASE_URL: PostgresDsn
-    DEFAULT_LOCALE: str = Field(default="ru")
 
     # telegram
     TELEGRAM_BOT_TOKEN: SecretStr
     TELEGRAM_SECRET_TOKEN: SecretStr
     FSM_STORAGE_URL: RedisDsn
     ALLOWED_UPDATES: ListStrEnv
+
+    # locale (l10n)
+    LOCALE_PATH: Path = BASE_DIR / "locales/{locale}"
+    ALLOWED_LOCALES: ListStrEnv = ["ru"]
+    DEFAULT_LOCALE: str = "ru"
+    RESOURCE_IDS: ListStrEnv = ["translation.ftl"]
 
 
 settings = Settings()
