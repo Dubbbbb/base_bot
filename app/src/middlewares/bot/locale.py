@@ -53,5 +53,5 @@ class L10NMiddleware(BaseMiddleware):
             data: Dict[str, Any]
     ) -> Any:
         user_locale = event.from_user.language_code or settings.DEFAULT_LOCALE
-        data["_"] = self.l10n.get(locale=user_locale)
+        data["_"] = self.l10n.get(locale=user_locale).format_value
         return await handler(event, data)
