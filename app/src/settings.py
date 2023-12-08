@@ -5,7 +5,7 @@ from aiogram.client.session.aiohttp import AiohttpSession
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.redis import RedisStorage, RedisEventIsolation
 
-from pydantic import SecretStr, HttpUrl, Field, RedisDsn, PostgresDsn
+from pydantic import SecretStr, HttpUrl, RedisDsn, PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 import orjson
@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     )
     # general
     BASE_DIR: Path = Path(__file__).resolve().parent.parent
+    ASSETS_DIR: Path = BASE_DIR / "assets"
 
     # application
     DOMAIN: HttpUrl
