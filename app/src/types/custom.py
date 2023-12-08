@@ -1,10 +1,12 @@
 from typing import Annotated
 
 from pydantic import AfterValidator
+from fluent.runtime import FluentLocalization  # noqa
 
 __all__ = [
     "ListStrEnv",
     "ListIntEnv",
+    "Localization",
 ]
 
 
@@ -16,3 +18,4 @@ ListIntEnv = Annotated[
     str | list[int],
     AfterValidator(func=lambda x: [int(val) for val in x.split(",")] if isinstance(x, str) else x)
 ]
+Localization = FluentLocalization.format_value
