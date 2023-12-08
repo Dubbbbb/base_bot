@@ -3,7 +3,7 @@ from typing import Annotated
 from pydantic import AfterValidator
 
 __all__ = [
-    "ListStrEnv"
+    "ListStrEnv",
 ]
 
 
