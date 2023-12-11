@@ -1,4 +1,5 @@
 import contextlib
+from typing import AsyncIterator
 
 from fastapi import FastAPI
 from fastapi.applications import AppType
@@ -11,7 +12,7 @@ from app.src.database import session_maker
 
 
 @contextlib.asynccontextmanager
-async def lifespan(app: AppType):  # noqa
+async def lifespan(app: AppType) -> AsyncIterator[None]:  # noqa
     # application startup
     app.include_router(router=api.router)
 
