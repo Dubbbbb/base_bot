@@ -17,16 +17,32 @@ class AbstractRepository(ABC):
 
     @abstractmethod
     def get(self, pk: T) -> BaseModel | None:
-        pass
+        """getting object from database by primary key
+
+        :param pk: object Primary Key
+        :return: object if exist or None
+        """
 
     @abstractmethod
     def save(self, obj: BaseModel) -> BaseModel:
-        pass
+        """save object to database
+
+        :param obj: obj detail
+        :return: obj detail from database
+        """
 
     @abstractmethod
     def update(self, pk: T, obj: BaseModel) -> BaseModel:
-        pass
+        """update object in database by primary key
+
+        :param pk: object primary key
+        :param obj: object new data
+        :return: object detail
+        """
 
     @abstractmethod
     def delete(self, pk: T) -> None:
-        pass
+        """delete object from database by primary key
+
+        :param pk: object primary key
+        """
