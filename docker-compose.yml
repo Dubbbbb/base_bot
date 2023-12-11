@@ -19,7 +19,7 @@ services:
       TELEGRAM_BOT_TOKEN: 1808397438:AAGH02DZUHY2KV9awS6wMXgP4iuuwMcQKqQ
       TELEGRAM_SECRET_TOKEN: 36c773c1bf5bc392ea8b880ea31ee75efe8a2b73de58c8956173fca8d70c9881
       FSM_STORAGE_URL: redis://enigma:6379/0
-      ALLOWED_UPDATES: message,callback_query
+      ALLOWED_UPDATES: message callback_query
 
       ALLOWED_LOCALES: ru
       DEFAULT_LOCALE: ru

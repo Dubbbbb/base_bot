@@ -14,10 +14,10 @@ __all__ = [
 ASCIIAlphaStr = Annotated[str, Predicate(func=str.isascii), Predicate(func=str.isalpha)]
 ListStrEnv = Annotated[
     str | list[str],
-    AfterValidator(func=lambda x: x.split(",") if isinstance(x, str) else x)
+    AfterValidator(func=lambda x: x.split() if isinstance(x, str) else x)
 ]
 ListIntEnv = Annotated[
     str | list[int],
-    AfterValidator(func=lambda x: [int(val) for val in x.split(",")] if isinstance(x, str) else x)
+    AfterValidator(func=lambda x: [int(val) for val in x.split()] if isinstance(x, str) else x)
 ]
 Localization = FluentLocalization.format_value
