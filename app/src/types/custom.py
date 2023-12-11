@@ -1,15 +1,17 @@
 from typing import Annotated
 
-from pydantic import AfterValidator
+from annotated_types import Predicate
 from fluent.runtime import FluentLocalization  # noqa
+from pydantic import AfterValidator
 
 __all__ = [
+    "ASCIIAlphaStr",
     "ListStrEnv",
     "ListIntEnv",
     "Localization",
 ]
 
-
+ASCIIAlphaStr = Annotated[str, Predicate(func=str.isascii), Predicate(func=str.isalpha)]
 ListStrEnv = Annotated[
     str | list[str],
     AfterValidator(func=lambda x: x.split(",") if isinstance(x, str) else x)

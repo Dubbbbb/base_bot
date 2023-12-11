@@ -12,13 +12,11 @@ import orjson
 import ujson
 
 from app.src.types.custom import ListStrEnv
-from app.src.middlewares.bot import L10N, L10NMiddleware
 
 __all__ = [
     "bot",
     "dp",
     "settings",
-    "l10n_middleware",
 ]
 
 
@@ -71,10 +69,3 @@ bot = Bot(
         json_dumps=ujson.dumps
     )
 )
-l10n = L10N(
-    locales=settings.ALLOWED_LOCALES,
-    default_locale=settings.DEFAULT_LOCALE,
-    resource_ids=settings.RESOURCE_IDS,
-    roots=str(settings.LOCALE_PATH)
-)
-l10n_middleware = L10NMiddleware(l10n=l10n)
