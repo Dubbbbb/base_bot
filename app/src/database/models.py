@@ -3,15 +3,37 @@ from typing import TYPE_CHECKING
 
 from .base import Base
 
-from sqlalchemy import Column, BIGINT, BOOLEAN, VARCHAR, TIMESTAMP
-from sqlalchemy.orm import synonym
+from sqlalchemy import Column, BIGINT, BOOLEAN, VARCHAR, TIMESTAMP, ForeignKey
+from sqlalchemy.orm import synonym, relationship
 
 __all__ = [
     # metadata
     "Base",
     # models
     "TGUser",
+    "UserRole",
 ]
+
+
+class UserRole(Base):
+    __tablename__ = "user_roles"
+
+    if TYPE_CHECKING:
+        name: str
+        users: list["TGUser"]
+    else:
+        name = Column(VARCHAR(length=32), primary_key=True)
+
+        user = relationship(argument="TGUser")
+
+    def __str__(self) -> str:
+        return self.name
+
+    def __len__(self) -> int:
+        return len(self.user)
+
+    def __getitem__(self, item) -> "TGUser":
+        return self.users[item]
 
 
 class TGUser(Base):
@@ -25,6 +47,7 @@ class TGUser(Base):
         last_name: str
         date_register: datetime
         pk: int
+        role: str
     else:
         id = Column(
             BIGINT,
@@ -60,8 +83,19 @@ class TGUser(Base):
             nullable=False,
             comment="Date of user registration"
         )
+        role = Column(
+            VARCHAR(length=32),
+            ForeignKey(column="user_roles.name", onupdate="CASCADE", ondelete="RESTRICT"),
+            nullable=False
+        )
 
         pk = synonym("id")
+
+    def __str__(self) -> str:
+        return self.full_name
+
+    def __bool__(self) -> bool:
+        return self.is_active
 
     @property
     def full_name(self) -> str:
