@@ -32,6 +32,8 @@ services:
     image: postgres:15.3-alpine3.18
     hostname: enigma
     restart: always
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: enigma
       POSTGRES_PASSWORD: enigma
