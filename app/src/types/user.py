@@ -1,4 +1,5 @@
 from datetime import datetime, UTC
+from typing import Optional
 
 from pydantic import EmailStr, Field, PositiveInt
 
@@ -28,5 +29,8 @@ class UserDetail(ImmutableSchema):
 
 
 class UserUpdateForm(UserCreateForm):
-    id: PositiveInt = Field(default=...)
-    is_active: bool = Field(default=False)
+    email: Optional[EmailStr] = Field(default=None)
+    first_name: Optional[ASCIIAlphaStr] = Field(default=None, min_length=2, max_length=32)
+    last_name: Optional[ASCIIAlphaStr] = Field(default=None, min_length=2, max_length=32)
+    id: Optional[PositiveInt] = Field(default=None)
+    is_active: Optional[bool] = Field(default=None)
