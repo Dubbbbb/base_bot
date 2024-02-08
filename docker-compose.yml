@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   app:
-    container_name: enigma-bot
+    container_name: base-bot
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,36 +11,26 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/opt/enigma_bot
-    environment:
-      DOMAIN: https://2410-80-249-81-99.ngrok-free.app
-      DATABASE_URL: postgresql://enigma:enigma@enigma:5432/enigma
+      - .:/opt/base_bot
+    env_file:
+      - ".env"
 
-      TELEGRAM_BOT_TOKEN: 1808397438:AAGH02DZUHY2KV9awS6wMXgP4iuuwMcQKqQ
-      TELEGRAM_SECRET_TOKEN: 36c773c1bf5bc392ea8b880ea31ee75efe8a2b73de58c8956173fca8d70c9881
-      FSM_STORAGE_URL: redis://enigma:6379/0
-      ALLOWED_UPDATES: message callback_query
-
-      ALLOWED_LOCALES: ru
-      DEFAULT_LOCALE: ru
     depends_on:
       - db
       - redis
 
   db:
-    container_name: enigma-bot-postgres
+    container_name: base-bot-postgres
     image: postgres:15.3-alpine3.18
-    hostname: enigma
+    hostname: base_bot
     restart: always
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_USER: enigma
-      POSTGRES_PASSWORD: enigma
-      POSTGRES_DB: enigma
+    env_file:
+      - ".env"
 
   redis:
-    container_name: enigma-bot-redis
+    container_name: base-bot-redis
     image: redis:7.2.2-alpine3.18
-    hostname: enigma
+    hostname: base_bot
     restart: always

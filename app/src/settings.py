@@ -40,7 +40,6 @@ class Settings(BaseSettings):
     TELEGRAM_BOT_TOKEN: SecretStr
     TELEGRAM_SECRET_TOKEN: SecretStr
     FSM_STORAGE_URL: RedisDsn
-    ALLOWED_UPDATES: ListStrEnv
 
     # locale (l10n)
     LOCALE_PATH: Path = BASE_DIR / "locales/{locale}"

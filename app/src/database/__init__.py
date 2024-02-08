@@ -8,5 +8,5 @@ __all__ = [
     "session_maker",
     # models
     "Base",
-    "TGUser",
+    "User",
 ]

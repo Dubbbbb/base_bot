@@ -1,6 +1,6 @@
 FROM python:3.11.7-alpine3.18
 
-ARG APP_NAME=enigma_bot
+ARG APP_NAME=base_bot
 ARG APP_PATH=/opt/$APP_NAME
 ARG UNAME=www
 ARG UID=1000

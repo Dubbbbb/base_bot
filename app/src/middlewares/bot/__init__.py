@@ -1,5 +1,5 @@
 from .locale import *
-from .repositories import *
+from .database_session import *
 
 
 __all__ = [
@@ -7,5 +7,5 @@ __all__ = [
     "L10N",
     "L10NMiddleware",
     # repositories
-    "RepositoriesMiddleware",
+    "DBSessionMiddleware",
 ]

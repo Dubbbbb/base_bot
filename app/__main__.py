@@ -6,8 +6,7 @@ from fastapi.applications import AppType
 
 from app import api, handlers
 from app.src.settings import bot, dp, settings
-from app.src.middlewares.bot import RepositoriesMiddleware, L10N, L10NMiddleware
-from app.src.repositories import TGUserRepository
+from app.src.middlewares.bot import L10N, L10NMiddleware, DBSessionMiddleware
 from app.src.database import session_maker
 
 
@@ -31,13 +30,10 @@ async def lifespan(app: AppType) -> AsyncIterator[None]:  # noqa
         roots=str(settings.LOCALE_PATH)
     )
     l10n_middleware = L10NMiddleware(l10n=l10n)
-    repositories_middleware = RepositoriesMiddleware(
-        repositories={
-            "telegram_users_repository": TGUserRepository(session_maker=session_maker)
-        }
-    )
-    dp.message.middleware(repositories_middleware)
-    dp.callback_query.middleware(repositories_middleware)
+
+    db_session_middleware = DBSessionMiddleware(session_maker=session_maker)
+    dp.message.middleware(db_session_middleware)
+    dp.callback_query.middleware(db_session_middleware)
 
     dp.message.middleware(l10n_middleware)
     dp.callback_query.middleware(l10n_middleware)
