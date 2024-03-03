@@ -11,16 +11,7 @@ __all__ = [
     "Base",
     # models
     "User",
-    "UserRole",
 ]
-
-
-class UserRole(Base):
-    __tablename__ = "user_roles"
-
-    name = Column(VARCHAR(length=32), primary_key=True)
-
-    user = relationship(argument="User")
 
 
 class User(Base):
@@ -31,12 +22,10 @@ class User(Base):
         primary_key=True,
         comment="User Telegram ID"
     )
-    is_active = Column(
-        BOOLEAN,
-        default=False,
-        server_default="false",
+    username = Column(
+        VARCHAR(length=32),
         nullable=False,
-        comment="Is the User active?"
+        comment="User username"
     )
     email = Column(
         VARCHAR(length=128),
@@ -44,26 +33,16 @@ class User(Base):
         unique=True,
         comment="User Email",
     )
-    first_name = Column(
-        VARCHAR(length=32),
-        nullable=False,
-        comment="User first name"
-    )
-    last_name = Column(
-        VARCHAR(length=32),
-        nullable=False,
-        comment="User last name"
-    )
     date_register = Column(
         TIMESTAMP(timezone=True),
         default=lambda: datetime.now(tz=UTC),
         nullable=False,
         comment="Date of user registration"
     )
-    role = Column(
-        VARCHAR(length=32),
-        ForeignKey(column="user_roles.name", onupdate="CASCADE", ondelete="RESTRICT"),
-        nullable=False
+    is_superuser = Column(
+        BOOLEAN,
+        nullable=False,
+        default=False
     )
 
 

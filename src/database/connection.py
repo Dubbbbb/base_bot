@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.src.settings import settings
+from src.settings import settings
 
 __all__ = [
     "engine",

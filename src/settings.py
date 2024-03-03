@@ -11,7 +11,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 import orjson
 import ujson
 
-from app.src.types.custom import ListStrEnv
+from src.types.custom import ListStrEnv
 
 __all__ = [
     "bot",
@@ -56,10 +56,6 @@ fsm_storage = RedisStorage.from_url(
     json_dumps=orjson.dumps
 )
 fsm_events_isolation = RedisEventIsolation(redis=fsm_storage.redis)
-dp = Dispatcher(
-    storage=fsm_storage,
-    events_isolation=fsm_events_isolation
-)
 bot = Bot(
     token=settings.TELEGRAM_BOT_TOKEN.get_secret_value(),
     parse_mode=ParseMode.HTML,
@@ -67,4 +63,8 @@ bot = Bot(
         json_loads=ujson.loads,
         json_dumps=ujson.dumps
     )
+)
+dp = Dispatcher(
+    # storage=fsm_storage,
+    # events_isolation=fsm_events_isolation
 )

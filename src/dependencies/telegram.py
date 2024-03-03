@@ -3,7 +3,7 @@ from typing import NoReturn
 from fastapi import Depends, Header, HTTPException
 from starlette.status import HTTP_403_FORBIDDEN
 
-from app.src import settings
+from src import settings
 
 __all__ = [
     "TelegramSecretTokenExist",

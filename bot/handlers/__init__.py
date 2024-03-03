@@ -1,9 +1,8 @@
 from aiogram import Router
-
-from app.handlers import echo
+from . import start
 
 __all__ = ["router"]
 
 
 router = Router(name="root")
-router.include_router(router=echo.router)
+router.include_router(router=start.router)

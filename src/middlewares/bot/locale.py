@@ -4,7 +4,7 @@ from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject, CallbackQuery, Message
 from fluent.runtime import FluentLocalization, FluentResourceLoader  # noqa
 
-from app.src import settings
+from src import settings
 
 __all__ = [
     "L10N",
